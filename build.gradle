@@ -1,0 +1,40 @@
+plugins {
+    id("java")
+    id("application")
+}
+
+group = "com.CleverBank"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+application {
+    mainClassName = 'com.CleverBank.CleverBankApp'
+}
+
+
+dependencies {
+    //   compile("joda-time:joda-time:2.2")
+    compileOnly("org.projectlombok:lombok:1.18.20")
+
+    implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.27'
+    implementation("org.postgresql:postgresql:42.6.0")
+
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+
+    annotationProcessor("org.projectlombok:lombok:1.18.20")
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.CleverBank.CleverBankApp'
+    }
+    from sourceSets.main.output
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
